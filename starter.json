@@ -1,0 +1,26 @@
+{
+  "name": "Your name",
+  "bio": "A short introduction to you and your work.",
+  "groups": [
+    {
+      "title": "Find me",
+      "links": [
+        {
+          "label": "My work",
+          "url": "https://example.com/"
+        },
+        {
+          "label": "Email me",
+          "url": "mailto:hello@example.com",
+          "destination": true
+        }
+      ]
+    }
+  ],
+  "appearance": {
+    "palette": "paper",
+    "accent": "blue",
+    "theme": "system"
+  },
+  "demo": false
+}

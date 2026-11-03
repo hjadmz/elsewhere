@@ -1,0 +1,113 @@
+{
+  "name": "Alex Morgan",
+  "eyebrow": "Design, code & photography",
+  "bio": "Projects, writing, and places to connect.",
+  "location": "",
+  "groups": [
+    {
+      "title": "Make & build",
+      "links": [
+        {
+          "label": "Portfolio",
+          "url": "https://www.behance.net/"
+        },
+        {
+          "label": "Dribbble",
+          "url": "https://dribbble.com/"
+        },
+        {
+          "label": "Are.na",
+          "url": "https://www.are.na/"
+        },
+        {
+          "label": "Figma Community",
+          "url": "https://www.figma.com/community"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/"
+        },
+        {
+          "label": "CodePen",
+          "url": "https://codepen.io/"
+        }
+      ]
+    },
+    {
+      "title": "Write & share",
+      "links": [
+        {
+          "label": "Writing",
+          "url": "https://medium.com/"
+        },
+        {
+          "label": "Substack",
+          "url": "https://substack.com/"
+        },
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/"
+        },
+        {
+          "label": "Vimeo",
+          "url": "https://vimeo.com/"
+        },
+        {
+          "label": "Unsplash",
+          "url": "https://unsplash.com/"
+        },
+        {
+          "label": "Flickr",
+          "url": "https://www.flickr.com/"
+        }
+      ]
+    },
+    {
+      "title": "Connect & explore",
+      "links": [
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/"
+        },
+        {
+          "label": "Mastodon",
+          "url": "https://mastodon.social/"
+        },
+        {
+          "label": "Bluesky",
+          "url": "https://bsky.app/"
+        },
+        {
+          "label": "Threads",
+          "url": "https://www.threads.net/"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/"
+        },
+        {
+          "label": "Goodreads",
+          "url": "https://www.goodreads.com/"
+        },
+        {
+          "label": "Letterboxd",
+          "url": "https://letterboxd.com/"
+        },
+        {
+          "label": "Email me",
+          "url": "mailto:hello@example.com"
+        }
+      ]
+    }
+  ],
+  "appearance": {
+    "palette": "paper",
+    "accent": "rust",
+    "theme": "system"
+  },
+  "site": {
+    "title": "Alex Morgan — Elsewhere example",
+    "description": "An illustrative profile for Elsewhere, a reusable static links template."
+  },
+  "demo": true
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Alex Morgan",
+  "eyebrow": "Independent designer",
+  "bio": "Work, ideas, and a way to get in touch.",
+  "location": "",
+  "groups": [
+    {
+      "title": "",
+      "links": [
+        {
+          "label": "My work",
+          "url": "https://www.behance.net/"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/"
+        },
+        {
+          "label": "Say hello",
+          "url": "mailto:hello@example.com"
+        }
+      ]
+    }
+  ],
+  "appearance": {
+    "palette": "paper",
+    "accent": "blue",
+    "theme": "system"
+  },
+  "site": {
+    "title": "Alex Morgan — Elsewhere example",
+    "description": "An illustrative profile for Elsewhere, a reusable static links template."
+  },
+  "demo": true
+}

@@ -1,0 +1,18 @@
+{
+  "name": "elsewhere-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A considered place to be found. A portable profile and links template.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "start": "node scripts/serve.mjs",
+    "check": "npm test && npm run build",
+    "test:hosting": "node scripts/test-hosting.mjs"
+  },
+  "license": "MIT"
+}

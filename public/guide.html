@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-palette="paper"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><meta name="description" content="A small, portable profile and links template. How to make Elsewhere your own."><title>Make it yours — Elsewhere</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"></head>
+<body><a class="skip-link" href="#guide">Skip to guide</a><main class="guide" id="guide" tabindex="-1"><a class="back" href="index.html">← Back to the examples</a><p class="eyebrow">Elsewhere / A considered starting point</p><h1>A place to be found.</h1><p class="lead">Your name. A little context. A few good links. Enough to help someone find what matters.</p>
+<p>Elsewhere is a static profile template for people who want a home on the web without a whole publication to maintain. The example person is fictional; the sample links open service homepages, and the sample email uses <code>example.com</code>. Replace them before publishing your own page.</p>
+<h2>Small by choice.</h2><p>Every destination has a readable name and a familiar link. The portrait is optional. Three links work as a short introduction; twenty work as a directory with clear groups. Everything stays visible and usable without JavaScript.</p><p>A restrained palette, generous spacing, and self-hosted Atkinson typography provide the starting point. Content and identity are yours. The template does not require a public credit, a particular platform, or a photo.</p>
+<h2>Make it yours.</h2><ol><li>Copy <code>starter.json</code> into <code>profile.json</code> in the source package. Replace the name, bio, and links. Delete optional fields you don’t need.</li><li>Choose a palette and accent, then set <code>demo</code> to <code>false</code>. This removes the example navigation and example pages from your build.</li><li>Run <code>npm run build</code> with Node 22 or newer. Upload the contents of <code>dist/</code> to a static host. No package installation or server runtime is needed.</li></ol>
+<pre><code>{
+  "name": "Your name",
+  "bio": "A sentence about you.",
+  "groups": [{
+    "title": "Find me",
+    "links": [{
+      "label": "Your work",
+      "url": "https://example.com"
+    }]
+  }],
+  "appearance": {
+    "palette": "paper",
+    "accent": "blue",
+    "theme": "system"
+  },
+  "demo": false
+}</code></pre>
+<h2>Options with a purpose.</h2><table><thead><tr><th scope="col">You choose</th><th scope="col">The template handles</th></tr></thead><tbody><tr><td>Name, introduction, optional portrait</td><td>Wrapping, spacing, and a complete layout with or without an image</td></tr><tr><td>Links, order, groups, descriptions</td><td>Readable labels, optional destination details, and a single keyboard order</td></tr><tr><td>Paper or stone; blue, rust, or forest</td><td>Matched light and dark colors, visible focus, and consistent contrast</td></tr><tr><td>System, light, or dark default</td><td>A labeled visitor preference, enhanced when JavaScript is available</td></tr></tbody></table>
+<p>For a portrait, add the file under <code>public/assets/</code> and set <code>portrait.src</code> to its <code>assets/…</code> path. Use a short <code>portrait.alt</code> when the image adds information; leave it empty when it simply repeats the nearby name.</p>
+<p>Interface labels and the favicon are configurable too. The source package includes complete customization and hosting guides. Jekyll is not required: upload the built files to a static host, or integrate them carefully alongside an existing blog.</p>
+<h2>The thinking behind it.</h2><p>Function: help someone recognize you and choose a destination. Convenience: a small configuration, ordinary browser behavior, and files you can take anywhere. Aesthetics: proportion and care, without making people decode the interface.</p><p>This is influenced by <a href="https://jnd.org/signifiers-not-affordances/">Norman’s distinction between affordances and signifiers</a>, <a href="https://www.vitsoe.com/us/about/good-design">Rams’s principles</a>, and the approach developed in <a href="https://github.com/hjadmz/quiet">Quiet</a>. The full rationale, alternatives, and research sources live in the source package’s <code>docs/DESIGN.md</code>.</p>
+<h2>Deliberate limits.</h2><p>There are no accounts, analytics, feeds, social embeds, custom cursors, or third-party font requests in the template. Your host may still keep server logs. Editing JSON is less convenient than a hosted visual editor; that is the tradeoff for a small, portable site with no application service to maintain.</p><p>The accessibility target is WCAG 2.2 AA. Automated tests and browser inspection cover specific conditions; they do not establish universal accessibility. Screen-reader and physical-device testing are still needed before making a conformance claim. See <code>docs/ACCESSIBILITY.md</code> for the recorded scope.</p>
+<p><a href="index.html">Return to the full example →</a></p></main></body></html>

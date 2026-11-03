@@ -1,0 +1,60 @@
+{
+  "name": "Alex Morgan",
+  "eyebrow": "Design & development",
+  "bio": "I design digital products and build things for the web.",
+  "featured": {
+    "label": "Selected work",
+    "url": "https://www.behance.net/",
+    "description": "Interfaces, tools, and experiments.",
+    "destination": true
+  },
+  "groups": [
+    {
+      "title": "Elsewhere",
+      "links": [
+        {
+          "label": "Writing",
+          "url": "https://medium.com/",
+          "description": "Notes on design and building for the web."
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/"
+        },
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/"
+        }
+      ]
+    },
+    {
+      "title": "Contact",
+      "links": [
+        {
+          "label": "Email me",
+          "url": "mailto:hello@example.com",
+          "destination": true
+        }
+      ]
+    }
+  ],
+  "appearance": {
+    "palette": "stone",
+    "accent": "forest",
+    "theme": "system"
+  },
+  "site": {
+    "title": "Alex Morgan — Elsewhere example",
+    "description": "An illustrative profile for Elsewhere, a reusable static links template."
+  },
+  "demo": true,
+  "portrait": {
+    "src": "assets/portrait-example.svg",
+    "alt": "Illustration of the example profile’s person."
+  },
+  "location": "Independent designer"
+}
