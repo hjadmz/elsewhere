@@ -6,7 +6,19 @@ A considered place to be found. A small, portable profile and links template, in
 
 ![Elsewhere example profile](docs/preview.jpg)
 
-[Download the latest release](https://github.com/hjadmz/elsewhere/releases/latest) · [Customization](docs/CUSTOMIZATION.md) · [Hosting](docs/HOSTING.md)
+## Quickstart
+
+1. On GitHub, click **Use this template → Create a new repository**, then clone your new repository. You can also download and extract `elsewhere-v*.zip` from the [latest release](https://github.com/hjadmz/elsewhere/releases/latest). To try the ZIP's sample before installing anything, open its `dist/index.html`.
+2. For your own page, copy the contents of `starter.json` into `profile.json`. Replace the sample name, bio, and links. Keep `"demo": false` to publish your profile by itself.
+3. With Node.js 22 or newer, run these commands in the folder containing `package.json`.
+
+   ```sh
+   npm run build
+   npm start
+   ```
+
+   Open the printed address, usually `http://127.0.0.1:4173`. Run `npm run build` again and reload after editing. There are no npm dependencies to install.
+4. Publish the **contents of `dist/`** to a static host, or push your customized source and run the included GitHub Pages workflow. [Hosting steps](docs/HOSTING.md)
 
 ## What it does
 
@@ -18,20 +30,6 @@ A considered place to be found. A small, portable profile and links template, in
 - Self-hosts fonts. No application server, runtime framework, third-party embeds, or analytics are included.
 
 No public template credit is required. The footer is yours. Source code is MIT licensed; bundled Atkinson fonts retain their SIL OFL notices. The sample illustration is original template artwork. Personal identity marks are not included.
-
-## Try it
-
-Use Node.js 22 or newer. There are no npm packages to install.
-
-```sh
-npm test
-npm run build
-npm start
-```
-
-Open the printed local address, normally `http://127.0.0.1:4173`. The server only binds to your own computer. Run `npm run build` and reload after editing. The sample navigation shows the main example, a minimal profile, a portrait, and twenty links.
-
-After building, `dist/index.html` also opens directly from disk. GitHub source downloads and clones need this build step; the release ZIP includes prebuilt demonstration files. Core links and layout work in that mode; browser storage behavior for file URLs varies.
 
 ## Make it yours
 
@@ -82,7 +80,7 @@ Full examples: [customization](docs/CUSTOMIZATION.md) · [hosting and Jekyll coe
 
 Upload the **contents of `dist/`** to your static host. Node is only needed for editing/building; the published page needs no Node server. Relative asset paths support hosting at a domain root or repository subpath. Use relative local destination paths if the site may move between them. Your host may keep request logs; the absence of template analytics is not a promise about your host.
 
-For a **new GitHub repository**, copy the source package, select **Settings → Pages → GitHub Actions**, and run the included **Publish to GitHub Pages** workflow manually. It tests, builds, and uploads `dist/`. Automatic publication is intentionally not triggered by a push; you can add that later. See [GitHub’s custom workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). The included workflow is optional; creating a repository does not automatically publish a website.
+For **GitHub Pages**, push your customized source and select **Settings → Pages → Build and deployment → Source → GitHub Actions**. Then open **Actions → Publish to GitHub Pages → Run workflow**. The workflow tests, builds, and publishes `dist/`. Run it again after each update you want to publish. [GitHub’s custom workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
 
 Do not copy an unrelated `.openai/hosting.json` or `.git/` directory into your own repository. The downloadable source package excludes preview-host identity. No Sites account is required to use the template. The private demonstration may require sign-in; the exported static site contains no authentication layer.
 
