@@ -1,6 +1,6 @@
 {
   "name": "elsewhere-template",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "A considered place to be found. A portable profile and links template.",
   "type": "module",

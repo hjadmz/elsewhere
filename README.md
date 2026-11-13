@@ -2,7 +2,7 @@
 
 A considered place to be found. A small, portable profile and links template, informed by the design approach behind [Quiet](https://github.com/hjadmz/quiet).
 
-**Version 1.0.0 — reusable static template.** Design direction follows Henry Adams’s supplied principles; implementation and documentation were developed with AI assistance. The example person is fictional. Example links lead to platform homepages; `hello@example.com` is an illustrative address. Replace all sample content before using it as your own site.
+**Version 1.1.0 — reusable static template.** Design direction follows Henry Adams’s supplied principles; implementation and documentation were developed with AI assistance. The example person is fictional. Example links lead to platform homepages; `hello@example.com` is an illustrative address. Replace all sample content before using it as your own site.
 
 ![Elsewhere example profile](docs/preview.jpg)
 
