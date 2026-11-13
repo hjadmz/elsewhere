@@ -1,6 +1,6 @@
 /** Build-time rendering only. No content depends on JavaScript in the browser. */
-const ROOT_FIELDS = ['name', 'eyebrow', 'bio', 'location', 'lang', 'direction', 'portrait', 'featured', 'groups', 'footer', 'appearance', 'labels', 'site', 'demo'];
-const DEFAULT_LABELS = Object.freeze({ skipLink: 'Skip to links', appearance: 'Appearance', system: 'System', light: 'Light', dark: 'Dark' });
+const ROOT_FIELDS = ['name', 'eyebrow', 'bio', 'location', 'lang', 'direction', 'portrait', 'featured', 'groups', 'sections', 'footer', 'appearance', 'labels', 'site', 'demo'];
+const DEFAULT_LABELS = Object.freeze({ skipLink: 'Skip to links', sections: 'Sections', appearance: 'Appearance', system: 'System', light: 'Light', dark: 'Dark' });
 const CONTROL = /[\u0000-\u001f\u007f]/u;
 const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 
@@ -99,6 +99,7 @@ export function validateProfile(input) {
     footer: text(input.footer, 'profile.footer'),
     lang: language(input.lang, 'profile.lang'),
     direction: choice(input.direction, 'profile.direction', ['ltr', 'rtl', 'auto'], 'auto'),
+    sections: choice(input.sections, 'profile.sections', ['auto', 'on', 'off'], 'auto'),
     demo: input.demo ?? false,
   };
   if (typeof profile.demo !== 'boolean') problem('profile.demo', 'must be true or false, without quotation marks.');
@@ -115,6 +116,9 @@ export function validateProfile(input) {
     return { title: text(group.title, `${path}.title`), links: group.links.map((item, itemIndex) => link(item, `${path}.links[${itemIndex}]`)) };
   });
   if (!profile.featured && !profile.groups.length) problem('profile.groups', 'add at least one link or a featured destination.');
+  if (profile.sections === 'on' && profile.groups.filter(group => group.title).length < 2) {
+    problem('profile.sections', 'needs at least two titled groups when set to "on". Add group titles or use "auto".');
+  }
   const appearance = object(input.appearance ?? {}, 'profile.appearance', ['palette', 'accent', 'theme']);
   profile.appearance = {
     palette: choice(appearance.palette, 'profile.appearance.palette', ['paper', 'stone'], 'paper'),
@@ -160,6 +164,14 @@ function demoBar(prefix, current) {
   return `<aside class="demo-bar" aria-label="Template demonstration" lang="en" dir="ltr"><div><a class="demo-brand" href="${prefix}index.html">Elsewhere<span aria-hidden="true">.</span></a> <span class="demo-label">Example profile · destinations are illustrative</span><nav class="demo-nav" aria-label="Template examples">${examples.map(([path, label]) => `<a href="${prefix}${path}"${path === current ? ' aria-current="page"' : ''}>${label}</a>`).join('')}</nav></div></aside>`;
 }
 
+export function sectionGroups(profile) {
+  if (profile.sections === 'off') return [];
+  const titledGroups = profile.groups.flatMap((group, index) => group.title ? [{ ...group, id: `group-${index + 1}` }] : []);
+  if (profile.sections === 'on') return titledGroups;
+  const titledLinkCount = titledGroups.reduce((count, group) => count + group.links.length, 0);
+  return titledGroups.length >= 3 && titledLinkCount >= 12 ? titledGroups : [];
+}
+
 export function renderProfile(input, { assetPrefix = '', currentPath = 'index.html' } = {}) {
   const p = validateProfile(input);
   if (!['', '../'].includes(assetPrefix)) throw new Error('assetPrefix must be empty or ../.');
@@ -170,6 +182,8 @@ export function renderProfile(input, { assetPrefix = '', currentPath = 'index.ht
   // A partially translated configuration must not mark English fallbacks as another language.
   const labelLang = key => p.labels[key] === undefined ? 'en' : p.labels.lang;
   const labelText = key => p.labels[key] ?? DEFAULT_LABELS[key];
+  const titledGroups = sectionGroups(p);
+  const showSections = titledGroups.length > 0;
   return `<!doctype html>
 <html lang="${e(p.lang)}" dir="${p.direction}" data-palette="${p.appearance.palette}" data-accent="${p.appearance.accent}" data-theme="${p.appearance.theme}" data-default-theme="${p.appearance.theme}">
 <head>
@@ -186,21 +200,30 @@ export function renderProfile(input, { assetPrefix = '', currentPath = 'index.ht
   <link rel="icon" href="${assetPrefix}${e(p.site.favicon)}" type="${iconType}">
   <link rel="stylesheet" href="${assetPrefix}assets/site.css">
   <script src="${assetPrefix}assets/enhance.js" defer></script>
+  ${showSections ? `<script src="${assetPrefix}assets/sections.js" defer></script>` : ''}
 </head>
 <body${p.demo ? ' class="is-demo"' : ''}>
 <a class="skip-link" href="#links" lang="${e(labelLang('skipLink'))}" dir="auto">${e(labelText('skipLink'))}</a>
 ${p.demo ? demoBar(assetPrefix, currentPath) : ''}
 <div class="page-frame">
   <div class="profile-layout">
+    ${showSections ? '<div class="profile-rail">' : ''}
     <header class="identity">
       ${p.eyebrow ? `<p class="eyebrow">${e(p.eyebrow)}</p>` : ''}
       <div class="identity-heading"><h1>${e(p.name)}</h1>${p.portrait ? `<img class="portrait" src="${assetPrefix}${e(p.portrait.src)}" alt="${e(p.portrait.alt)}" width="88" height="104" decoding="async">` : ''}</div>
       ${p.bio ? `<p class="bio">${e(p.bio)}</p>` : ''}
       ${p.location ? `<p class="location">${e(p.location)}</p>` : ''}
     </header>
+    ${showSections ? `<details class="section-navigation">
+      <summary><span id="sections-label" lang="${e(labelLang('sections'))}" dir="auto">${e(labelText('sections'))}</span><span class="current-group" lang="${e(p.lang)}" dir="auto" hidden></span></summary>
+      <nav aria-labelledby="sections-label">
+        <ul>${titledGroups.map(group => `<li><a href="#${group.id}">${e(group.title)}</a></li>`).join('')}</ul>
+      </nav>
+    </details>
+    </div>` : ''}
     <main id="links" class="destinations" tabindex="-1">
       ${p.featured ? renderLink(p.featured, true, assetPrefix) : ''}
-      ${p.groups.map((group, index) => `<${group.title ? 'section' : 'div'} class="link-group"${group.title ? ` aria-labelledby="group-${index + 1}"` : ''}>${group.title ? `<h2 class="group-title" id="group-${index + 1}">${e(group.title)}</h2>` : ''}<ul class="link-list">${group.links.map(item => `<li>${renderLink(item, false, assetPrefix)}</li>`).join('')}</ul></${group.title ? 'section' : 'div'}>`).join('\n      ')}
+      ${p.groups.map((group, index) => `<${group.title ? 'section' : 'div'} class="link-group"${group.title ? ` aria-labelledby="group-${index + 1}"` : ''}>${group.title ? `<h2 class="group-title" id="group-${index + 1}"${showSections ? ' tabindex="-1"' : ''}>${e(group.title)}</h2>` : ''}<ul class="link-list">${group.links.map(item => `<li>${renderLink(item, false, assetPrefix)}</li>`).join('')}</ul></${group.title ? 'section' : 'div'}>`).join('\n      ')}
     </main>
   </div>
   <footer class="page-footer">${p.footer ? `<p>${e(p.footer)}</p>` : ''}<div id="theme-control" class="theme-control" hidden lang="${e(p.labels.lang)}" dir="auto"><label for="theme-choice" lang="${e(labelLang('appearance'))}">${e(labelText('appearance'))}</label><select id="theme-choice" name="appearance">${['system', 'light', 'dark'].map(value => `<option value="${value}" lang="${e(labelLang(value))}"${p.appearance.theme === value ? ' selected' : ''}>${e(labelText(value))}</option>`).join('')}</select></div></footer>

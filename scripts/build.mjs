@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { renderProfile, validateProfile } from '../src/render.mjs';
+import { renderProfile, sectionGroups, validateProfile } from '../src/render.mjs';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -60,6 +60,7 @@ export async function buildSite(root = projectRoot) {
   await rejectSymlinks(publicRoot);
   // The demonstration guide has its own fixed template favicon. Personal pages use site.favicon.
   const requiredAssets = ['assets/site.css', 'assets/enhance.js', ...(profiles[0].profile.demo ? ['assets/favicon.svg'] : [])];
+  if (profiles.some(({ profile }) => sectionGroups(profile).length)) requiredAssets.push('assets/sections.js');
   for (const required of requiredAssets) {
     const info = await fs.stat(path.join(publicRoot, required)).catch(error => {
       if (error.code === 'ENOENT') throw new Error(`Required file public/${required} is missing. Restore it before building.`);
