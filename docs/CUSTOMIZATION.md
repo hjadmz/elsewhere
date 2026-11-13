@@ -40,6 +40,7 @@ The defaults are the paper palette, blue accent, system appearance, English page
 | `portrait` | Optional local image; see below. Omit the object for a text-only page. |
 | `featured` | Optional single priority link, using the same fields as ordinary links. |
 | `groups` | Required array of link groups. Each group contains a nonempty `links` array and an optional `title`. Use `[]` only when a featured link supplies the destination. |
+| `sections` | Optional `auto`, `on`, or `off`. Leave it at `auto` for most profiles. |
 | `footer` | Optional closing text. No public template credit is required. |
 | `demo` | Set to `false` for your site. It defaults to false when omitted. |
 
@@ -55,6 +56,8 @@ Every link requires `label` and `url`. An optional `description` explains what i
 ```
 
 Array order is display order and keyboard order. For three links, an untitled group can be enough. For twenty, use helpful group titles and put the most relevant destinations first. Remove an empty group entirely. There is no platform registry: adding another social service requires only a readable label and URL.
+
+With `sections` omitted or set to `auto`, the Sections menu appears when at least three titled groups contain at least twelve links in total. Set it to `on` when jumping saves time on a long page with fewer links or groups. This requires at least two titled groups. Set it to `off` when headings and ordinary scrolling suffice. The menu jumps to titled groups and can show the current group while scrolling. All destinations remain visible, and the section links work without JavaScript.
 
 ## Links and local paths
 
@@ -116,6 +119,7 @@ Set `lang` to a language tag such as `en`, `fr`, or `ar`. `direction` accepts `a
 "labels": {
   "lang": "fr",
   "skipLink": "Aller aux liens",
+  "sections": "Rubriques",
   "appearance": "Apparence",
   "system": "Système",
   "light": "Clair",

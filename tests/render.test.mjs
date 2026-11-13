@@ -124,6 +124,26 @@ test('twenty links, long labels and non-Latin text remain in the initial HTML', 
   assert.doesNotMatch(html, /<details|<dialog/);
 });
 
+test('section navigation supports the conservative default and a validated owner override', () => {
+  const links = Array.from({ length: 4 }, (_, index) => ({ label: `Destination ${index + 1}`, url: `https://example.com/${index + 1}` }));
+  const groups = [{ title: 'Travail', links }, { links }, { title: 'Contact & aide', links }];
+  const profile = { name: 'Alex', lang: 'fr', labels: { lang: 'fr', sections: 'Rubriques' }, groups };
+  assert.doesNotMatch(renderProfile(profile), /class="section-navigation"|assets\/sections\.js/);
+  const enabled = renderProfile({ ...profile, sections: 'on' }, { assetPrefix: '../' });
+  assert.match(enabled, /id="sections-label" lang="fr" dir="auto">Rubriques<\/span>/);
+  assert.match(enabled, /src="\.\.\/assets\/sections\.js"/);
+  assert.match(enabled, /<a href="#group-1">Travail<\/a>/);
+  assert.match(enabled, /<a href="#group-3">Contact &amp; aide<\/a>/);
+  assert.doesNotMatch(enabled, /href="#group-2"/);
+  assert.match(enabled, /<h2 class="group-title" id="group-3" tabindex="-1">Contact &amp; aide<\/h2>/);
+
+  const longProfile = { ...profile, groups: [...groups, { title: 'Écriture', links }] };
+  assert.match(renderProfile(longProfile), /class="section-navigation"/);
+  assert.doesNotMatch(renderProfile({ ...longProfile, sections: 'off' }), /class="section-navigation"|assets\/sections\.js/);
+  assert.throws(() => renderProfile({ ...profile, sections: true }), /profile\.sections: must be one of: auto, on, off/);
+  assert.throws(() => renderProfile({ ...minimal(), sections: 'on' }), /profile\.sections: needs at least two titled groups/);
+});
+
 test('demo paths resolve assets and navigation from their subdirectory and are not indexed', () => {
   const html = renderProfile({ ...minimal(), demo: true, portrait: { src: 'assets/portrait.svg', alt: '' } }, { assetPrefix: '../', currentPath: 'examples/portrait.html' });
   assert.match(html, /href="\.\.\/assets\/site.css"/);

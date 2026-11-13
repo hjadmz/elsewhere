@@ -12,7 +12,7 @@ A considered place to be found. A small, portable profile and links template, in
 
 - Introduces a person and a collection of links, with an optional featured destination and portrait.
 - Supports any platform through a label and URL—no social-media registry to maintain.
-- Handles a short list or a larger directory through optional groups, ordinary scrolling, and browser Find.
+- Handles a short list or a larger directory through optional groups, ordinary scrolling, and browser Find. By default, a Sections menu appears when at least three titled groups contain at least twelve links in total.
 - Offers paper/stone palettes, blue/rust/forest accents, and system/light/dark appearance.
 - Generates semantic HTML. All content and navigation work without JavaScript. The small optional script adds a theme preference and a broken-image fallback.
 - Self-hosts fonts. No application server, runtime framework, third-party embeds, or analytics are included.
@@ -62,13 +62,14 @@ Set `demo` to `false` for your site. This removes the demonstration bar, generat
 | `portrait` | Optional `{ "src": "assets/portrait.webp", "alt": "…" }`. Place the file in `public/assets/`. Omit the entire object for no portrait. An empty alt is appropriate when it repeats the adjacent identity. |
 | `featured` | Optional `{ "label": "…", "url": "…", "description": "…" }` for one priority destination. |
 | `groups` | Array of `{ "title": "…", "links": […] }`. Titles and link descriptions are optional. Delete empty groups. Use `[]` for a featured-only page. |
+| `sections` | Optional `auto` (default), `on`, or `off`. Use `on` for a long directory with at least two titled groups or `off` when scrolling is enough. |
 | `links` | Any number of `{ "label": "…", "url": "…", "description": "…" }` records. Descriptions are optional; add `"destination": true` to show a hostname or address. Array order is display/keyboard order. |
 | `appearance.palette` | `paper` (warm) or `stone` (cool). |
 | `appearance.accent` | `blue`, `rust`, or `forest`. Colors are paired with light/dark backgrounds. |
 | `appearance.theme` | `system`, `light`, or `dark` initial preference. A visitor can override it. |
 | `site` | Optional `title`, `description`, `url` (canonical page URL), `image` (local sharing image; requires `url`), and `favicon` (local SVG, PNG or ICO). Keep a trailing slash for directory URLs. |
 | `lang`, `direction` | Language tag (default `en`) and `ltr`, `rtl`, or `auto` (default). System fallback fonts cover characters absent from the bundled fonts. Translate interface labels through `labels` when changing language. |
-| `labels` | Optional `lang`, `skipLink`, `appearance`, `system`, `light`, and `dark` interface strings. Unspecified labels remain English and retain their English language tag. |
+| `labels` | Optional `lang`, `skipLink`, `sections`, `appearance`, `system`, `light`, and `dark` interface strings. Unspecified labels remain English and retain their English language tag. |
 | `demo` | `true` only for the preview gallery. Defaults to `false` if omitted. |
 
 Links support `https:`, `http:`, `mailto:`, `tel:`, and ordinary local paths. Use complete URL schemes for external sites. Optional destination text shows the hostname or contact address. Links open in the current tab. Visitors can use their browser to open another tab. URL credentials, unsafe schemes, control characters, and parent-directory traversal are rejected. Plain text is escaped; raw HTML in config is not interpreted.
