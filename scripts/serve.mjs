@@ -4,6 +4,7 @@ import { createReadStream } from 'node:fs';
 import { realpath, stat } from 'node:fs/promises';
 import { dirname, extname, isAbsolute, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { matchesPreviewHost, previewHost } from './preview-host.mjs';
 
 const output = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const port = Number(process.env.PORT ?? 4173);
@@ -58,6 +59,11 @@ const server = createServer(async (request, response) => {
     });
     response.end(request.method === 'HEAD' ? undefined : message);
   };
+
+  if (!matchesPreviewHost(request.headersDistinct.host, request.socket.localPort)) {
+    send(400, 'Invalid preview host.\n');
+    return;
+  }
 
   if (!['GET', 'HEAD'].includes(request.method)) {
     send(405, 'Method not allowed.\n', { Allow: 'GET, HEAD' });
@@ -127,7 +133,7 @@ server.on('error', (error) => {
     : `Preview could not start: ${error.message}`);
   process.exitCode = 1;
 });
-server.listen(port, '127.0.0.1', () => {
-  console.log(`Elsewhere preview: http://127.0.0.1:${server.address().port}`);
+server.listen(port, previewHost, () => {
+  console.log(`Elsewhere preview: http://${previewHost}:${server.address().port}`);
   console.log('Serving dist/ only. Press Ctrl+C to stop.');
 });
